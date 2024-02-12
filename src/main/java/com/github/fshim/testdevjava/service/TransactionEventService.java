@@ -47,7 +47,9 @@ public class TransactionEventService {
                 .expectedAmount(entity.getAmount())
                 .build();
 
-        if (Objects.isNull(entity.getAmount()) || entity.getAmount().compareTo(data.getAmount()) != 0) {
+        if (Objects.isNull(entity.getAmount()) ||
+                Objects.isNull(data.getAmount()) ||
+                entity.getAmount().compareTo(data.getAmount()) != 0) {
             log.warn("Transaction(id:{}) have different amount. Actual: {}, expected: {}.",
                     data.getId(),
                     data.getAmount(),

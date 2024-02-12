@@ -31,6 +31,9 @@ public class KafkaNotificationService implements NotificationService {
         var message = reportTemplate.generateMessage(event);
         try {
             kafkaTemplate.send(topic, message).get();
+        } catch (InterruptedException ix) {
+            log.error("Failed to send notification. Interrupted exception.", ix);
+            Thread.currentThread().interrupt();
         } catch (Exception e) {
             log.error("Failed to send notification.", e);
             throw new RuntimeException("Failed to send notification.", e);
